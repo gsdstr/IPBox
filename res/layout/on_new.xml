@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	      android:layout_width="fill_parent"
+	      android:layout_height="wrap_content"
+	      android:padding="5dp"
+	      android:gravity="center"
+	      android:orientation="vertical">
+
+	<TextView
+		android:id="@+id/add_list_hello_text"
+		android:text="@string/hello_text"
+		android:gravity="center"
+		android:layout_width="wrap_content"
+		android:layout_height="fill_parent"/>
+
+	<TextView
+		style="@style/Divider"/>
+
+	<TextView
+		android:text="@string/add_by_url"
+		android:gravity="center"
+		android:layout_width="wrap_content"
+		android:layout_height="fill_parent"/>
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:gravity="center"
+		android:padding="5dp">
+
+		<EditText
+			android:id="@+id/add_list_url_text"
+			android:layout_height="wrap_content"
+			android:layout_width="0dp"
+			android:layout_weight="1"
+			android:inputType="textUri"/>
+
+		<Button
+			android:id="@+id/add_list_url_button"
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:text="@string/button_add"/>
+
+	</LinearLayout>
+
+	<TextView
+		style="@style/Divider"/>
+
+	<TextView
+		android:text="@string/select_from_list"
+		android:gravity="center"
+		android:layout_width="wrap_content"
+		android:layout_height="fill_parent"/>
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:gravity="center"
+		android:padding="5dp">
+
+		<Spinner
+			android:id="@+id/add_list_select_spinner"
+			android:layout_height="wrap_content"
+			android:layout_width="0dp"
+			android:layout_weight="1"
+			android:inputType="textUri"/>
+
+		<Button
+			android:id="@+id/add_list_select_button"
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:text="@string/button_add"/>
+
+	</LinearLayout>
+
+	<Button
+		android:id="@+id/add_list_skip"
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content"
+		android:text="@string/button_skip"/>
+
+</LinearLayout>

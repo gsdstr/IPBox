@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+		  android:key="mainScreen">
+
+	<!--PreferenceCategory
+		android:title="@string/preferences_main">
+
+		<CheckBoxPreference
+			android:key="firstTime"
+			android:title="@string/preferences_main"
+			android:summary="@string/preferences_main"/>
+
+	</PreferenceCategory-->
+
+	<PreferenceCategory
+		android:title="@string/preferences_player">
+
+		<ListPreference
+			android:key="playerType"
+			android:title="@string/preferences_player_use"
+			android:summary="@string/preferences_player_use_sum"
+			android:entries="@array/player_title"
+			android:entryValues="@array/player_values"
+			android:dialogTitle="@string/preferences_player_use_dialog"/>
+
+		<!--EditTextPreference
+			android:key="edittext_preference"
+			android:title="@string/preferences_player"
+			android:summary="@string/preferences_player"
+			android:dialogTitle="@string/preferences_player"/-->
+
+	</PreferenceCategory>
+
+	<PreferenceCategory
+		android:key="playlists_category"
+		android:title="@string/preferences_playlists">
+
+		<!-- This PreferenceScreen tag sends the user to a new fragment of
+	             preferences.  If running in a large screen, they can be embedded
+	             inside of the overall preferences UI.-->
+		<PreferenceScreen
+			android:key="playlists_new"
+			android:title="@string/preferences_playlists_new"
+			android:summary="@string/preferences_playlists_new">
+		</PreferenceScreen>
+
+	</PreferenceCategory>
+
+</PreferenceScreen>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">IPBox Alpha</string>
+	<string name="alternate_title">An alternate title that is long</string>
+	<string name="toggle_title">Toggle title</string>
+
+	<string name="menu_refresh">Обновить</string>
+	<string name="menu_search">Поиск</string>
+	<string name="menu_select">Cписки</string>
+	<string name="menu_edit">Редактировать списки playlists</string>
+	<string name="menu_preferences">Настройки</string>
+
+	<string name="alert_dialog_cancel">Отмена</string>
+
+	<string name="playlist_dialog_title">Выберите список</string>
+
+	<string name="preferences_main">Main</string>
+	<string name="preferences_player">Проигрыватель</string>
+	<string name="preferences_playlists">Списки</string>
+	<string name="preferences_playlists_new">Добавить</string>
+	<string name="preferences_playlist_delete">Удалить</string>
+	<string name="preferences_playlist_title">Название</string>
+	<string name="preferences_playlist_title_new">New</string>
+	<string name="preferences_playlist_title_sum">Название для списка</string>
+	<string name="preferences_player_use">Проигрыватель</string>
+	<string name="preferences_player_use_sum">Проигрыватель используемый для открытия канала</string>
+	<string name="preferences_player_use_dialog">Выберите</string>
+	<string name="alert_loading">загрузка…</string>
+	<string name="fail_loading">Не удалось загрузить</string>
+
+	<string name="button_add">Добавить</string>
+	<string name="button_skip">Пропустить</string>
+	<string name="add_by_url">По ссылке</string>
+	<string name="select_from_list">Или выберите из списка</string>
+	<string name="hello_text">Добро пожаловать</string>
+
+</resources>

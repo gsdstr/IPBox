@@ -1,0 +1,10 @@
+0.1
+First release.
+-support references to other M3U playlists.
+
+0.2.1
+Add welcome page
+Add url handling
+Add russian lang
+Add Daroon player
+Fix "No Activity found to handle Intent"

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<string-array name="player_values">
+		<item>System</item>
+		<item>MX Player</item>
+		<item>MX Player Pro</item>
+		<item>Daroon</item>
+	</string-array>
+	<string-array name="player_title">
+		<item>System</item>
+		<item>MX Player</item>
+		<item>MX Player Pro</item>
+		<item>Daroon</item>
+	</string-array>
+
+	<string-array name="playlist_type_values">
+		<item>url</item>
+		<item>assets</item>
+		<item>file</item>
+	</string-array>
+	<string-array name="playlist_type_title">
+		<item>URL</item>
+		<item>Provider</item>
+		<item>File</item>
+	</string-array>
+
+	<string-array name="providers_array">
+		<item>(Russia)4pda.ru</item>
+		<item>(Russia)Convex</item>
+		<item>(Russia)Corbina-Beeline</item>
+		<item>(Russia)kynashak_narod</item>
+	</string-array>
+
+</resources>

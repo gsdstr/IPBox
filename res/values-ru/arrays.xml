@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<string-array name="player_title">
+		<item>Системный</item>
+		<item>MX Player</item>
+		<item>MX Player Pro</item>
+		<item>Daroon</item>
+	</string-array>
+
+	<string-array name="playlist_type_title">
+		<item>URL</item>
+		<item>Assets</item>
+		<item>Файл</item>
+	</string-array>
+
+</resources>
