@@ -14,6 +14,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
+import com.ipbox.Const;
+import com.ipbox.IpBoxApp;
 import com.ipbox.R;
 import com.ipbox.actionbarcompat.ActionBarActivity;
 import com.ipbox.fragments.ChannelsFragment;
@@ -30,7 +32,8 @@ public class BaseActivity extends ActionBarActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setPlaylist(0);
+		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+		setPlaylist(preferences.getInt(Const.PREFERENCE_LAST_PLAYLIST, 0));
 	}
 
 	@Override
@@ -182,6 +185,9 @@ public class BaseActivity extends ActionBarActivity {
 	}
 
 	public void setPlaylist(int index) {
+		if( index < 0 || IpBoxApp.getPlayListsHolder().getPlaylists().size() < index)
+			index = 0;
+
 		// Check what fragment is shown, replace if needed.
 		ChannelsFragment channels = (ChannelsFragment) getSupportFragmentManager().findFragmentById(R.id.titles);
 		if (channels == null || channels.getShownIndex() != index) {
@@ -195,5 +201,13 @@ public class BaseActivity extends ActionBarActivity {
 			ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
 			ft.commit();
 		}
+	}
+
+	public void openPlaylist(int index) {
+		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+		SharedPreferences.Editor editor = preferences.edit();
+		editor.putInt(Const.PREFERENCE_LAST_PLAYLIST, index);
+		editor.commit();
+		setPlaylist(index);
 	}
 }

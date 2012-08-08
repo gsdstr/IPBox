@@ -39,7 +39,7 @@ public class PlaylistDialog extends DialogFragment {
 			.setSingleChoiceItems(adapter, 0,
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int index) {
-						_activity.setPlaylist(index);
+						_activity.openPlaylist(index);
 						dialog.dismiss();
 					}
 				})

@@ -23,6 +23,7 @@ import com.ipbox.playlist.Playlist;
  */
 public class ChannelsFragment extends Fragment {
 	protected static final String CUR_CHO = "curChoice";
+	protected static final String CUR_VIZ = "curViz";
 
 	public static ChannelsFragment newInstance(int index) {
 		ChannelsFragment f = new ChannelsFragment();
@@ -46,6 +47,7 @@ public class ChannelsFragment extends Fragment {
 	protected Playlist _list;
 	protected ChannelsAdapter _adapter;
 	protected GridView _gridView;
+	protected int _firstVisible;
 
 	@Override
 	public void onActivityCreated(Bundle savedState) {
@@ -111,16 +113,18 @@ public class ChannelsFragment extends Fragment {
 		if (_list == null)
 			return;
 		getActivity().setTitle(_list.getTitle());
+		if (savedInstance != null)
+			_firstVisible = savedInstance.getInt(CUR_VIZ, 0);
+		else
+			_firstVisible = 0;
 		new LoadTask().execute(_list);
-		/*if (_list.load())
-			return;
-		_adapter = new ChannelsAdapter(getActivity(), _list);*/
 	}
 
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
 		outState.putInt(CUR_CHO, _curCheckPosition);
+		outState.putInt(CUR_VIZ, _gridView.getFirstVisiblePosition());
 	}
 
 	/**
@@ -177,6 +181,8 @@ public class ChannelsFragment extends Fragment {
 				return;
 			_adapter = new ChannelsAdapter(getActivity(), result);
 			_gridView.setAdapter(_adapter);
+			//_gridView.smoothScrollToPosition(_firstVisible);
+			_gridView.setSelection(_firstVisible);
 		}
 	}
 }

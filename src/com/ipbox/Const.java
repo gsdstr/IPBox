@@ -7,6 +7,8 @@ package com.ipbox;
  */
 public interface Const {
 	public static final String PREFERENCE_FIRST_TIME = "firstTime_new";
+	public static final String PREFERENCE_LAST_PLAYLIST = "last_playlist";
+
 	public static final String ARGUMENT_INDEX = "index";
 
 	public static final String KEY_CATEGORY = "playlist_category";

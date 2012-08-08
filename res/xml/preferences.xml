@@ -3,15 +3,22 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
 		  android:key="mainScreen">
 
-	<!--PreferenceCategory
+	<PreferenceCategory
 		android:title="@string/preferences_main">
 
-		<CheckBoxPreference
+		<ListPreference
+			android:key="playerTheme"
+			android:title="@string/preferences_theme"
+			android:entries="@array/theme_title"
+			android:entryValues="@array/theme_values"
+			android:dialogTitle="@string/preferences_player_use_dialog"/>
+
+		<!--CheckBoxPreference
 			android:key="firstTime"
 			android:title="@string/preferences_main"
-			android:summary="@string/preferences_main"/>
+			android:summary="@string/preferences_main"/-->
 
-	</PreferenceCategory-->
+	</PreferenceCategory>
 
 	<PreferenceCategory
 		android:title="@string/preferences_player">
