@@ -32,4 +32,13 @@
 		<item>(Russia)kynashak_narod</item>
 	</string-array>
 
+	<string-array name="theme_title">
+		<item>White</item>
+		<item>Black</item>
+	</string-array>
+	<string-array name="theme_values">
+		<item>White</item>
+		<item>Black</item>
+	</string-array>
+
 </resources>
