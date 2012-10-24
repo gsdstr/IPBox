@@ -178,23 +178,6 @@ public class PlayListsHolder {
 		}
 	}
 
-	public void initPlayLists() {
-		//Playlist list = new Playlist("convex_all", R.raw.convex_all);
-		//_playlists.add(list);
-
-		Playlist list = new Playlist("convex_tv", R.raw.convex_tv);
-		_playlists.add(list);
-
-		list = new Playlist("convex_web", Const.TYPE_URL, "http://79.172.33.85/tv_All.m3u");
-		_playlists.add(list);
-
-		list = new Playlist("kynashak_narod", R.raw.kynashak_narod);
-		_playlists.add(list);
-
-		list = new Playlist("pda", R.raw.pda);
-		_playlists.add(list);
-	}
-
 	public void storePlayLists() {
 		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(IpBoxApp.getContext());
 		SharedPreferences.Editor editor = preferences.edit();

@@ -17,7 +17,8 @@
 	<string name="test_line">xcasdfasd</string>
 
 	<string name="preferences_main">Main</string>
-	<string name="preferences_theme">Theme</string>
+	<string name="prefereces_theme">Theme</string>
+	<string name="preferences_theme_sum">Need restart app</string>
 	<string name="preferences_player">Player</string>
 	<string name="preferences_playlists">Playlists</string>
 	<string name="preferences_playlists_new">Add new</string>
@@ -38,3 +39,4 @@
 	<string name="hello_text">Welcome</string>
 
 </resources>
+

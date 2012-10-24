@@ -9,6 +9,7 @@
 		<ListPreference
 			android:key="playerTheme"
 			android:title="@string/preferences_theme"
+			android:summary="@string/preferences_theme_sum"
 			android:entries="@array/theme_title"
 			android:entryValues="@array/theme_values"
 			android:dialogTitle="@string/preferences_player_use_dialog"/>

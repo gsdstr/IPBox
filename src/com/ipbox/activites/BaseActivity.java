@@ -34,6 +34,11 @@ public class BaseActivity extends ActionBarActivity {
 		super.onCreate(savedInstanceState);
 		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
 		setPlaylist(preferences.getInt(Const.PREFERENCE_LAST_PLAYLIST, 0));
+		if (preferences.getString(Const.PREFERENCE_PLAYER_THEME, "White").equals("Black"))
+			setTheme(R.style.BlackBoxTheme);
+		else
+			setTheme(R.style.BoxTheme);
+
 	}
 
 	@Override
