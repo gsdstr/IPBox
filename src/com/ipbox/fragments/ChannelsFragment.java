@@ -73,7 +73,7 @@ public class ChannelsFragment extends Fragment {
 		_gridView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
 			@Override
 			public boolean onItemLongClick(AdapterView<?> adapterView, View view, int position, long id) {
-				showDetails(position);
+				//showDetails(position);
 				return true;
 			}
 		});

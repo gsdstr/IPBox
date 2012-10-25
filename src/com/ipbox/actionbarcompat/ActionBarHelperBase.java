@@ -55,7 +55,7 @@ public class ActionBarHelperBase extends ActionBarHelper {
 		try{
 			mActivity.requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
 		} catch (AndroidRuntimeException ex){
-			//TODO
+			int i = 0;//TODO
 		}
 	}
 
