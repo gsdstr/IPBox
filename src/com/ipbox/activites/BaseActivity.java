@@ -9,7 +9,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.preference.PreferenceManager;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
@@ -21,8 +20,8 @@ import com.ipbox.Const;
 import com.ipbox.IpBoxApp;
 import com.ipbox.R;
 import com.ipbox.fragments.ChannelsFragment;
-import com.ipbox.fragments.PlaylistDialog;
 import com.ipbox.playlist.Channel;
+import com.ipbox.playlist.Playlist;
 
 /**
  * User: gsd
@@ -47,7 +46,7 @@ public class BaseActivity extends SherlockFragmentActivity implements ActionBar.
 			setTheme(R.style.BoxTheme_Light);
 
 		Context context = getSupportActionBar().getThemedContext();
-		ArrayAdapter<CharSequence> list = ArrayAdapter.createFromResource(context, R.array.locations, R.layout.sherlock_spinner_item);
+		ArrayAdapter<Playlist> list = new ArrayAdapter<Playlist>(context,  R.layout.sherlock_spinner_item, IpBoxApp.getPlayListsHolder().getPlaylists());
 		list.setDropDownViewResource(R.layout.sherlock_spinner_dropdown_item);
 
 		getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
@@ -70,7 +69,7 @@ public class BaseActivity extends SherlockFragmentActivity implements ActionBar.
 
 	@Override
 	public boolean onNavigationItemSelected(int itemPosition, long itemId) {
-		//mSelected.setText("Selected: " + mLocations[itemPosition]);
+		openPlaylist(itemPosition);
 		return true;
 	}
 
@@ -104,25 +103,6 @@ public class BaseActivity extends SherlockFragmentActivity implements ActionBar.
 		}
 	}
 
-	protected void showPlaylistDialog() {
-		//mStackLevel++;
-
-		// DialogFragment.show() will take care of adding the fragment
-		// in a transaction.  We also want to remove any currently showing
-		// dialog, so make our own transaction and take care of that here.
-		FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-		Fragment prev = getSupportFragmentManager().findFragmentByTag("dialog");
-		if (prev != null) {
-			ft.remove(prev);
-		}
-		ft.addToBackStack(null);
-
-		ChannelsFragment details = (ChannelsFragment) getSupportFragmentManager().findFragmentById(R.id.titles);
-		// Create and show the dialog.
-		PlaylistDialog newFragment = PlaylistDialog.newInstance(this);
-		newFragment.show(ft, "dialog");
-	}
-
 	protected void loadChannel(Channel channel, String playerType) {
 		if (playerType.equals("MX Player") || playerType.equals("MX Player Pro")) {
 			loadMx(channel, playerType.contains("Pro"));
@@ -152,7 +132,6 @@ public class BaseActivity extends SherlockFragmentActivity implements ActionBar.
 		viewMediaIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
 		startActivityForResult(viewMediaIntent, 0);
 	}
-
 
 	public static final String MXVP = "com.mxtech.videoplayer.ad";
 	public static final String MXVP_PRO = "com.mxtech.videoplayer.pro";
@@ -198,7 +177,7 @@ public class BaseActivity extends SherlockFragmentActivity implements ActionBar.
 
 	}
 
-	public void setPlaylist(int index) {
+	protected void setPlaylist(int index) {
 		if (index < 0 || IpBoxApp.getPlayListsHolder().getPlaylists().size() < index)
 			index = 0;
 
@@ -218,10 +197,14 @@ public class BaseActivity extends SherlockFragmentActivity implements ActionBar.
 	}
 
 	public void openPlaylist(int index) {
-		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-		SharedPreferences.Editor editor = preferences.edit();
-		editor.putInt(Const.PREFERENCE_LAST_PLAYLIST, index);
-		editor.commit();
-		setPlaylist(index);
+		try{
+			SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+			SharedPreferences.Editor editor = preferences.edit();
+			editor.putInt(Const.PREFERENCE_LAST_PLAYLIST, index);
+			editor.commit();
+			setPlaylist(index);
+		} catch (Exception ex){
+			//TODO
+		}
 	}
 }
