@@ -16,6 +16,7 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
+import com.actionbarsherlock.widget.SearchView;
 import com.ipbox.Const;
 import com.ipbox.IpBoxApp;
 import com.ipbox.R;
@@ -28,10 +29,12 @@ import com.ipbox.playlist.Playlist;
  * Date: 5/29/12
  * Time: 10:12 AM
  */
-public class BaseActivity extends SherlockFragmentActivity implements ActionBar.OnNavigationListener {
+public class BaseActivity extends SherlockFragmentActivity implements ActionBar.OnNavigationListener, SearchView.OnQueryTextListener {
 
 	protected static final int ID_MENU_SEARCH = 1;
 	protected static final int ID_MENU_PREFERENCES = 2;
+
+	protected ChannelsFragment _channels;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -54,10 +57,16 @@ public class BaseActivity extends SherlockFragmentActivity implements ActionBar.
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(com.actionbarsherlock.view.Menu menu) {
+	public boolean onCreateOptionsMenu(Menu menu) {
+
+		//Create the search view
+		SearchView searchView = new SearchView(getSupportActionBar().getThemedContext());
+		searchView.setQueryHint("Search");
+		searchView.setOnQueryTextListener(this);
+
 		MenuItem miSearch = menu.add(Menu.NONE, ID_MENU_SEARCH, Menu.NONE, R.string.menu_search);
 		miSearch.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS | MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
-		miSearch.setActionView(R.layout.collapsible_edittext);
+		miSearch.setActionView(searchView);
 		miSearch.setIcon(R.drawable.ic_menu_search);
 
 		MenuItem miPrefs = menu.add(Menu.NONE, ID_MENU_PREFERENCES, Menu.NONE, R.string.menu_preferences);
@@ -76,10 +85,6 @@ public class BaseActivity extends SherlockFragmentActivity implements ActionBar.
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-
-			case ID_MENU_SEARCH:
-				Toast.makeText(this, "Tapped search", Toast.LENGTH_SHORT).show();
-				break;
 
 			case ID_MENU_PREFERENCES:
 				if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
@@ -185,12 +190,12 @@ public class BaseActivity extends SherlockFragmentActivity implements ActionBar.
 		ChannelsFragment channels = (ChannelsFragment) getSupportFragmentManager().findFragmentById(R.id.titles);
 		if (channels == null || channels.getShownIndex() != index) {
 			// Make new fragment to show this selection.
-			channels = ChannelsFragment.newInstance(index);
+			_channels = ChannelsFragment.newInstance(index);
 
 			// Execute a transaction, replacing any existing
 			// fragment with this one inside the frame.
 			FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-			ft.replace(R.id.titles, channels);
+			ft.replace(R.id.titles, _channels);
 			ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
 			ft.commit();
 		}
@@ -206,5 +211,18 @@ public class BaseActivity extends SherlockFragmentActivity implements ActionBar.
 		} catch (Exception ex){
 			//TODO
 		}
+	}
+
+	@Override
+	public boolean onQueryTextSubmit(String query) {
+		return onQueryTextChange(query);
+	}
+
+	@Override
+	public boolean onQueryTextChange(String newText) {
+		if (_channels == null)
+			return false;
+		_channels.setQuery(newText);
+		return true;
 	}
 }

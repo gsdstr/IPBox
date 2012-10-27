@@ -15,11 +15,16 @@ public class Channel {
 
 	@Override
 	public String toString() {
-		return _title;
+		if (_title != null)
+			return _title;
+		else
+			return _url;
 	}
 
 	public void setInfo(String info) {
 		_info = info;
+		if (_info == null)
+			return;
 		String[] strings = _info.split(",");
 		if (strings.length > 1)
 			setTitle(strings[1]);

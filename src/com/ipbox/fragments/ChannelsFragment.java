@@ -163,6 +163,15 @@ public class ChannelsFragment extends Fragment {
 		}
 	}
 
+	public void setQuery(String newText) {
+		if (_adapter == null)
+			return;
+		if (newText == null || newText.equals(""))
+			_adapter.getFilter().filter("");
+		else
+			_adapter.getFilter().filter(newText.toLowerCase());
+	}
+
 	class LoadTask extends AsyncTask<Playlist, Void, Playlist> {
 
 		@Override
