@@ -12,7 +12,7 @@ public class MainActivity extends BaseActivity {
 		setContentView(R.layout.main);
 	}
 
-	@Override
+	/*@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 			case R.id.menu_select:
@@ -21,6 +21,6 @@ public class MainActivity extends BaseActivity {
 				return true;
 		}
 		return super.onOptionsItemSelected(item);
-	}
+	}  */
 
 }

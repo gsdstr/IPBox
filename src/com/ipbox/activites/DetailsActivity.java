@@ -30,7 +30,7 @@ public class DetailsActivity extends BaseActivity {
 		}
 	}
 
-	@Override
+	/*@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 			case R.id.menu_select:
@@ -39,6 +39,6 @@ public class DetailsActivity extends BaseActivity {
 				return true;
 		}
 		return super.onOptionsItemSelected(item);
-	}
+	}*/
 
 }

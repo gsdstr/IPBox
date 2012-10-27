@@ -1,6 +1,7 @@
 package com.ipbox.activites;
 
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -10,14 +11,15 @@ import android.os.Parcelable;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 import android.widget.Toast;
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
 import com.ipbox.Const;
 import com.ipbox.IpBoxApp;
 import com.ipbox.R;
-import com.ipbox.actionbarcompat.ActionBarActivity;
 import com.ipbox.fragments.ChannelsFragment;
 import com.ipbox.fragments.PlaylistDialog;
 import com.ipbox.playlist.Channel;
@@ -27,64 +29,67 @@ import com.ipbox.playlist.Channel;
  * Date: 5/29/12
  * Time: 10:12 AM
  */
-public class BaseActivity extends ActionBarActivity {
+public class BaseActivity extends SherlockFragmentActivity implements ActionBar.OnNavigationListener {
+
+	protected static final int ID_MENU_SEARCH = 1;
+	protected static final int ID_MENU_PREFERENCES = 2;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setTitle("");
 		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
 		setPlaylist(preferences.getInt(Const.PREFERENCE_LAST_PLAYLIST, 0));
 		String theme = preferences.getString(Const.PREFERENCE_PLAYER_THEME, "White");
-		if (theme.equals("Black")){
-			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
-				setTheme(R.style.HoloBoxTheme);
-			else
-				setTheme(R.style.BlackBoxTheme);
+		if (theme.equals("Black")) {
+			setTheme(R.style.BoxTheme_Black);
 		} else
-			setTheme(R.style.BoxTheme);
+			setTheme(R.style.BoxTheme_Light);
 
+		Context context = getSupportActionBar().getThemedContext();
+		ArrayAdapter<CharSequence> list = ArrayAdapter.createFromResource(context, R.array.locations, R.layout.sherlock_spinner_item);
+		list.setDropDownViewResource(R.layout.sherlock_spinner_dropdown_item);
+
+		getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+		getSupportActionBar().setListNavigationCallbacks(list, this);
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		MenuInflater menuInflater = getMenuInflater();
-		menuInflater.inflate(R.menu.main, menu);
+	public boolean onCreateOptionsMenu(com.actionbarsherlock.view.Menu menu) {
+		MenuItem miSearch = menu.add(Menu.NONE, ID_MENU_SEARCH, Menu.NONE, R.string.menu_search);
+		miSearch.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS | MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
+		miSearch.setActionView(R.layout.collapsible_edittext);
+		miSearch.setIcon(R.drawable.ic_menu_search);
 
-		// Calling super after populating the menu is necessary here to ensure that the
-		// action bar helpers have a chance to handle this event.
-		return super.onCreateOptionsMenu(menu);
+		MenuItem miPrefs = menu.add(Menu.NONE, ID_MENU_PREFERENCES, Menu.NONE, R.string.menu_preferences);
+		miPrefs.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+		miPrefs.setIcon(R.drawable.ic_menu_preferences);
+
+		return true;
+	}
+
+	@Override
+	public boolean onNavigationItemSelected(int itemPosition, long itemId) {
+		//mSelected.setText("Selected: " + mLocations[itemPosition]);
+		return true;
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-			case android.R.id.home:
-				Toast.makeText(this, "Tapped home", Toast.LENGTH_SHORT).show();
-				break;
 
-			case R.id.menu_refresh:
-				Toast.makeText(this, "Fake refreshing...", Toast.LENGTH_SHORT).show();
-				/*getActionBarHelper().setRefreshActionItemState(true);
-				getWindow().getDecorView().postDelayed(
-					new Runnable() {
-						@Override
-						public void run() {
-							getActionBarHelper().setRefreshActionItemState(false);
-						}
-					}, 1000); */
-				break;
-
-			/*case R.id.menu_search:
+			case ID_MENU_SEARCH:
 				Toast.makeText(this, "Tapped search", Toast.LENGTH_SHORT).show();
-				break;*/
+				break;
 
-			case R.id.menu_preferences:
+			case ID_MENU_PREFERENCES:
 				if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
 					startActivity(new Intent(this, IpBoxPreference.class));
 				} else {
 					startActivity(new Intent(this, IpBoxPreferenceHc.class));
 				}
 				break;
+
 		}
 		return super.onOptionsItemSelected(item);
 	}
@@ -92,9 +97,9 @@ public class BaseActivity extends ActionBarActivity {
 	public void loadChannel(Channel channel) {
 		Toast.makeText(this, R.string.alert_loading, Toast.LENGTH_SHORT).show();
 		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-		try{
+		try {
 			loadChannel(channel, preferences.getString("playerType", "system"));
-		} catch (Exception ex){
+		} catch (Exception ex) {
 			Toast.makeText(this, R.string.fail_loading, Toast.LENGTH_SHORT).show();
 		}
 	}
@@ -194,7 +199,7 @@ public class BaseActivity extends ActionBarActivity {
 	}
 
 	public void setPlaylist(int index) {
-		if( index < 0 || IpBoxApp.getPlayListsHolder().getPlaylists().size() < index)
+		if (index < 0 || IpBoxApp.getPlayListsHolder().getPlaylists().size() < index)
 			index = 0;
 
 		// Check what fragment is shown, replace if needed.

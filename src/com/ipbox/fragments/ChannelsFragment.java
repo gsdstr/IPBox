@@ -55,8 +55,8 @@ public class ChannelsFragment extends Fragment {
 
 		setupGrid(savedState);
 
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
-			setHasOptionsMenu(true);
+		//if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
+		//	setHasOptionsMenu(true);
 	}
 
 	protected void setupGrid(Bundle savedState) {
@@ -112,7 +112,6 @@ public class ChannelsFragment extends Fragment {
 		_list = IpBoxApp.getPlayListsHolder().getPlayList(getShownIndex());
 		if (_list == null)
 			return;
-		getActivity().setTitle(_list.getTitle());
 		if (savedInstance != null)
 			_firstVisible = savedInstance.getInt(CUR_VIZ, 0);
 		else
