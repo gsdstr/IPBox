@@ -14,7 +14,7 @@
 		<item name="android:listViewStyle">@style/Widget.ListView</item>
 	</style>
 
-	<style name="BlackBoxTheme" parent="android:style/Theme.Holo">
+	<style name="HoloBoxTheme" parent="android:style/Theme.Holo">
 		<item name="android:windowTitleSize">@dimen/actionbar_compat_height</item>
 		<item name="android:windowTitleBackgroundStyle">@style/ActionBarCompat</item>
 		<item name="android:windowContentOverlay">@drawable/actionbar_shadow</item>
@@ -28,8 +28,26 @@
 		<item name="android:listViewStyle">@style/Widget.ListView</item>
 	</style>
 
+	<style name="BlackBoxTheme" parent="android:style/Theme.Black">
+		<item name="android:windowTitleSize">@dimen/actionbar_compat_height</item>
+		<item name="android:windowTitleBackgroundStyle">@style/ActionBarCompatBlack</item>
+		<item name="android:windowContentOverlay">@drawable/actionbar_shadow</item>
+
+		<!-- for programmatic instantiation -->
+		<item name="actionbarCompatTitleStyle">@style/ActionBarBlackCompatTitle</item>
+		<item name="actionbarCompatItemStyle">@style/ActionBarCompatItem</item>
+		<item name="actionbarCompatItemHomeStyle">@style/ActionBarCompatHomeItem</item>
+		<item name="actionbarCompatProgressIndicatorStyle">@style/ActionBarCompatProgressIndicator</item>
+
+		<item name="android:gridViewStyle">@style/Widget.BlackListView</item>
+	</style>
+
 	<style name="ActionBarCompat">
 		<item name="android:background">#eee</item>
+	</style>
+
+	<style name="ActionBarCompatBlack">
+		<item name="android:background">#111</item>
 	</style>
 
 	<style name="ActionBarCompatItemBase">
@@ -56,6 +74,10 @@
 		<item name="android:textColor">@color/actionbar_title_color</item>
 	</style>
 
+	<style name="ActionBarBlackCompatTitle" parent="style/ActionBarCompatTitleBase">
+		<item name="android:textColor">@color/actionbar_black_title_color</item>
+	</style>
+
 	<style name="ActionBarCompatItem" parent="style/ActionBarCompatItemBase">
 	</style>
 
@@ -67,6 +89,12 @@
 
 	<style name="Widget.ListView">
 		<item name="android:background">#FFFFFF</item>
+		<item name="android:divider">#66666666</item>
+		<item name="android:dividerHeight">2dip</item>
+	</style>
+
+	<style name="Widget.BlackListView">
+		<item name="android:background">#000000</item>
 		<item name="android:divider">#66666666</item>
 		<item name="android:dividerHeight">2dip</item>
 	</style>
