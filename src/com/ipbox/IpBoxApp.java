@@ -7,12 +7,15 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import com.ipbox.activites.NewActivity;
 import com.ipbox.playlist.PlayListsHolder;
+import org.acra.ACRA;
+import org.acra.annotation.ReportsCrashes;
 
 /**
  * User: gsd
  * Date: 6/9/12
  * Time: 1:14 PM
  */
+@ReportsCrashes(formKey = "dDRIdHhDMjFMZTJ4UUt3NW5xN3NBUVE6MQ")
 public class IpBoxApp extends Application {
 
 	private static Context _context;
@@ -28,6 +31,7 @@ public class IpBoxApp extends Application {
 
 	@Override
 	public void onCreate() {
+		ACRA.init(this);
 		_context = this;
 		_playListsHolder = new PlayListsHolder();
 

@@ -108,9 +108,9 @@ public class Playlist {
 			load(reader);
 		} catch (IOException e) {
 			return false;
-		}/* catch (NetworkOnMainThreadException e) { //TODO
+		} catch (Exception e) { //TODO
 			return false;
-		}*/
+		}
 		return true;
 	}
 

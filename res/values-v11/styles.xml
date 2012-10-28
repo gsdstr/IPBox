@@ -16,19 +16,12 @@
 
 <resources>
 
-    <style name="BoxTheme" parent="android:style/Theme.Holo.Light">
-        <item name="android:actionBarStyle">@style/ActionBar</item>
-        <item name="android:windowContentOverlay">@drawable/actionbar_shadow</item>
-    </style>
+	<style name="BoxTheme.Light" parent="Theme.Sherlock.Light">
+		<item name="android:listViewStyle">@style/Widget.ListView.Light</item>
+	</style>
 
-    <style name="ActionBar" parent="android:style/Widget.Holo.Light.ActionBar">
-        <item name="android:background">#eee</item>
-        <item name="android:titleTextStyle">@style/ActionBarTitle</item>
-        <item name="android:icon">@drawable/ic_home</item>
-    </style>
-
-    <style name="ActionBarTitle">
-        <item name="android:textColor">@color/actionbar_title_color</item>
-    </style>
+	<style name="BoxTheme.Black" parent="Theme.Sherlock">
+		<item name="android:gridViewStyle">@style/Widget.ListView.Black</item>
+	</style>
 
 </resources>
