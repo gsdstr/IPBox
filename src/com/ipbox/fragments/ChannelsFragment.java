@@ -97,11 +97,6 @@ public class ChannelsFragment extends Fragment {
 	}
 
 	@Override
-	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-		//http://stackoverflow.com/questions/9556795/android-actionbar-search-widget-implementation
-	}
-
-	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		return inflater.inflate(R.layout.channels, container, false);
 	}
