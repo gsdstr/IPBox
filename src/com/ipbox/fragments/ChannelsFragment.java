@@ -65,7 +65,7 @@ public class ChannelsFragment extends Fragment {
 
 		_gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-				((BaseActivity) getActivity()).loadChannel(_list.getChannel(position));
+				((BaseActivity) getActivity()).loadChannel(_adapter.getItem(position));
 
 			}
 		});

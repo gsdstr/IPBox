@@ -30,16 +30,10 @@ public class ChannelsAdapter extends ArrayAdapter<Channel> {
 	public View getView(final int position, View convertView, ViewGroup parent) {
 		View view = super.getView(position, convertView, parent);
 
-		final Channel channel = _list.getChannel(position);
+		final Channel channel = getItem(position);
 
 		ImageView channelIcon = (ImageView) view.findViewById(R.id.channel_icon);
 		channelIcon.setImageDrawable(_activity.getResources().getDrawable(channel.getIconId()));
-		/*channelIcon.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				_activity.loadChannel(channel);
-			}
-		});  */
 		TextView subText = (TextView) view.findViewById(R.id.channel_sub_text);
 		subText.setText(channel.getUrl());
 
