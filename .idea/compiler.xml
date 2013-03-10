@@ -6,6 +6,7 @@
       <directory url="file://$PROJECT_DIR$/gen" includeSubdirectories="true" />
       <directory url="file://$PROJECT_DIR$/../Sherlock/gen" includeSubdirectories="true" />
       <directory url="file://$PROJECT_DIR$/../AsanaBox/gen" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/../SMServ/gen" includeSubdirectories="true" />
     </excludeFromCompile>
     <resourceExtensions />
     <wildcardResourcePatterns>

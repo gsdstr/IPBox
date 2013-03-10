@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/IPBox.iml" filepath="$PROJECT_DIR$/IPBox.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../SMServ/SMServ.iml" filepath="$PROJECT_DIR$/../SMServ/SMServ.iml" />
       <module fileurl="file://$PROJECT_DIR$/../Sherlock/Sherlock.iml" filepath="$PROJECT_DIR$/../Sherlock/Sherlock.iml" />
     </modules>
   </component>
