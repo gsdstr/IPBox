@@ -1,9 +1,9 @@
-package com.ipbox.activites;
+package com.gsdstr.ipbox.activites;
 
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
-import com.ipbox.IpBoxApp;
-import com.ipbox.R;
+import com.gsdstr.ipbox.IpBoxApp;
+import com.gsdstr.ipbox.R;
 
 /**
  * User: gsd

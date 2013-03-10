@@ -1,4 +1,4 @@
-package com.ipbox.activites;
+package com.gsdstr.ipbox.activites;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,8 +9,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import com.ipbox.IpBoxApp;
-import com.ipbox.R;
+import com.gsdstr.ipbox.IpBoxApp;
+import com.gsdstr.ipbox.R;
 
 /**
  * User: gsd

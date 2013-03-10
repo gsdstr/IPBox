@@ -1,4 +1,4 @@
-package com.ipbox.activites;
+package com.gsdstr.ipbox.activites;
 
 import android.content.ActivityNotFoundException;
 import android.content.Context;
@@ -17,12 +17,12 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.widget.SearchView;
-import com.ipbox.Const;
-import com.ipbox.IpBoxApp;
-import com.ipbox.R;
-import com.ipbox.fragments.ChannelsFragment;
-import com.ipbox.playlist.Channel;
-import com.ipbox.playlist.Playlist;
+import com.gsdstr.ipbox.Const;
+import com.gsdstr.ipbox.IpBoxApp;
+import com.gsdstr.ipbox.R;
+import com.gsdstr.ipbox.fragments.ChannelsFragment;
+import com.gsdstr.ipbox.playlist.Channel;
+import com.gsdstr.ipbox.playlist.Playlist;
 
 /**
  * User: gsd

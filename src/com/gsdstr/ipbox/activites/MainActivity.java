@@ -1,8 +1,7 @@
-package com.ipbox.activites;
+package com.gsdstr.ipbox.activites;
 
 import android.os.Bundle;
-import android.view.MenuItem;
-import com.ipbox.R;
+import com.gsdstr.ipbox.R;
 
 public class MainActivity extends BaseActivity {
 

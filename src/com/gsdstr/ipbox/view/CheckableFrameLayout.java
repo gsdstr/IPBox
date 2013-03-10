@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.ipbox.view;
+package com.gsdstr.ipbox.view;
 
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;

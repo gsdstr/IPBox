@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="app_name">IPBox Alpha</string>
+	<string name="app_name">IPBox</string>
+
 	<string name="alternate_title">An alternate title that is long</string>
 	<string name="toggle_title">Toggle title</string>
 

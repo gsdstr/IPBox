@@ -1,6 +1,6 @@
-package com.ipbox.playlist;
+package com.gsdstr.ipbox.playlist;
 
-import com.ipbox.R;
+import com.gsdstr.ipbox.R;
 
 /**
  * User: gsd

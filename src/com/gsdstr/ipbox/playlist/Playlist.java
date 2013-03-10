@@ -1,7 +1,8 @@
-package com.ipbox.playlist;
+package com.gsdstr.ipbox.playlist;
 
-import com.ipbox.Const;
-import com.ipbox.IpBoxApp;
+import android.webkit.MimeTypeMap;
+import com.gsdstr.ipbox.Const;
+import com.gsdstr.ipbox.IpBoxApp;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -23,6 +24,8 @@ public class Playlist {
 	protected String _value;
 
 	protected ArrayList<Channel> _channels;
+
+	protected int _lastSelect = -1;
 
 	public Playlist(String title, String type, String value) {
 		this();
@@ -76,6 +79,14 @@ public class Playlist {
 		return _title;
 	}
 
+	public void select(int position){
+		_lastSelect = position;
+	}
+
+	public boolean isSelect(int position){
+		return _lastSelect == position;
+	}
+
 	public boolean load() {
 		_channels.clear();
 		if (_type.equals(Const.TYPE_ASSETS))
@@ -90,7 +101,7 @@ public class Playlist {
 			int id = Integer.parseInt(_value);
 			InputStream inputStream = IpBoxApp.getContext().getResources().openRawResource(id);
 			BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-			load(reader);
+			parseM3U(reader);
 		} catch (Exception e) {
 			return false;
 		}
@@ -99,13 +110,28 @@ public class Playlist {
 
 	protected boolean loadUrl() {
 		try {
+			String ext = MimeTypeMap.getFileExtensionFromUrl(_value);
+			if (ext.equals("vlc"))
+				return loadVLCUrl();
+		} catch (Exception ex){
+			/**/
+		}
+		return loadM3UUrl();
+	}
+
+	protected boolean loadVLCUrl() {
+		return true;
+	}
+
+	protected boolean loadM3UUrl() {
+		try {
 			URLConnection cn = new URL(_value).openConnection();
 			cn.setUseCaches(true);
 			cn.setAllowUserInteraction(false);
 			cn.connect();
 			InputStream inputStream = cn.getInputStream();
 			BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-			load(reader);
+			parseM3U(reader);
 		} catch (IOException e) {
 			return false;
 		} catch (Exception e) { //TODO
@@ -116,7 +142,7 @@ public class Playlist {
 
 	protected boolean _ext;
 
-	protected void load(BufferedReader reader) throws IOException {
+	protected void parseM3U(BufferedReader reader) throws IOException {
 		String line = reader.readLine();
 		if (line.contains("#EXTM3U")) {
 			_ext = true;
@@ -128,6 +154,24 @@ public class Playlist {
 			line = reader.readLine();
 		}
 	}
+
+	/*<?xml version="1.0" encoding="UTF-8"?>
+	<playlist xmlns="http://xspf.org/ns/0/" xmlns:vlc="http://www.videolan.org/vlc/playlist/ns/0/" version="1">
+	<title>Weburg.TV</title>
+	<creator>Weburg Ltd.</creator>
+	<date>2012-12-29T23:39:08+06:00</date>
+	<trackList>
+		<track>
+			<location>udp://@239.255.2.122:1234</location>
+			<title>Первый канал</title>
+			<image>http://gl00.weburg.net/00/tv/channels/1/14/amino/380642.jpg</image>
+			<creator>Weburg.TV</creator>
+			<extension application="http://www.videolan.org/vlc/playlist/0">
+				<vlc:id xmlns:vlc="vlc">1</vlc:id>
+			</extension>
+		</track>
+	</playlist>*/
+
 
 	protected boolean _nextUrl;
 	protected String inf = null;

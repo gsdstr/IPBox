@@ -1,12 +1,12 @@
-package com.ipbox;
+package com.gsdstr.ipbox;
 
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import com.ipbox.activites.NewActivity;
-import com.ipbox.playlist.PlayListsHolder;
+import com.gsdstr.ipbox.activites.NewActivity;
+import com.gsdstr.ipbox.playlist.PlayListsHolder;
 import org.acra.ACRA;
 import org.acra.annotation.ReportsCrashes;
 

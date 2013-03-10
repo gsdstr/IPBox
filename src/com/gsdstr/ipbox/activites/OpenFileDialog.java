@@ -1,4 +1,4 @@
-package com.ipbox.activites;
+package com.gsdstr.ipbox.activites;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -17,7 +17,7 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
-import com.ipbox.R;
+import com.gsdstr.ipbox.R;
 
 /**
  * Диалог открытия файла. Позволяет задавать стартовую директорию,

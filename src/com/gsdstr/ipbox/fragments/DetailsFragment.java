@@ -1,4 +1,4 @@
-package com.ipbox.fragments;
+package com.gsdstr.ipbox.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import com.ipbox.Const;
+import com.gsdstr.ipbox.Const;
 
 /**
  * User: gsd

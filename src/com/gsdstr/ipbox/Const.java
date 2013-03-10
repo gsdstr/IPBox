@@ -1,4 +1,4 @@
-package com.ipbox;
+package com.gsdstr.ipbox;
 
 /**
  * User: gsd

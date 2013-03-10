@@ -1,10 +1,8 @@
-package com.ipbox.activites;
+package com.gsdstr.ipbox.activites;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.view.MenuItem;
-import com.ipbox.R;
-import com.ipbox.fragments.DetailsFragment;
+import com.gsdstr.ipbox.fragments.DetailsFragment;
 
 /**
  * User: gsd

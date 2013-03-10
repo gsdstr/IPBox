@@ -1,12 +1,12 @@
-package com.ipbox.playlist;
+package com.gsdstr.ipbox.playlist;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.*;
-import com.ipbox.Const;
-import com.ipbox.IpBoxApp;
-import com.ipbox.R;
-import com.ipbox.activites.OpenFileDialog;
+import com.gsdstr.ipbox.Const;
+import com.gsdstr.ipbox.IpBoxApp;
+import com.gsdstr.ipbox.R;
+import com.gsdstr.ipbox.activites.OpenFileDialog;
 
 import java.io.File;
 import java.util.ArrayList;

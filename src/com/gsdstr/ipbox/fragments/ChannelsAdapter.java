@@ -1,15 +1,16 @@
-package com.ipbox.fragments;
+package com.gsdstr.ipbox.fragments;
 
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
-import com.ipbox.R;
-import com.ipbox.activites.BaseActivity;
-import com.ipbox.playlist.Channel;
-import com.ipbox.playlist.Playlist;
+import com.gsdstr.ipbox.R;
+import com.gsdstr.ipbox.activites.BaseActivity;
+import com.gsdstr.ipbox.playlist.Channel;
+import com.gsdstr.ipbox.playlist.Playlist;
 
 /**
  * User: gsd
@@ -37,6 +38,21 @@ public class ChannelsAdapter extends ArrayAdapter<Channel> {
 		TextView subText = (TextView) view.findViewById(R.id.channel_sub_text);
 		subText.setText(channel.getUrl());
 
+		RelativeLayout channelLayout = (RelativeLayout) view.findViewById(R.id.channel_layout);
+		if (_list.isSelect(position))
+			channelLayout.setBackgroundResource(R.drawable.border);
+		else
+			channelLayout.setBackground(null);
+
 		return view;
 	}
+
+	public void select(int position){
+		_list.select(position);
+	}
+
+	public boolean isSelect(int position){
+		return _list.isSelect(position);
+	}
+
 }

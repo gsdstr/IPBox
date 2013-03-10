@@ -1,20 +1,19 @@
-package com.ipbox.fragments;
+package com.gsdstr.ipbox.fragments;
 
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.*;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import com.ipbox.Const;
-import com.ipbox.IpBoxApp;
-import com.ipbox.R;
-import com.ipbox.activites.BaseActivity;
-import com.ipbox.activites.DetailsActivity;
-import com.ipbox.playlist.Playlist;
+import com.gsdstr.ipbox.Const;
+import com.gsdstr.ipbox.IpBoxApp;
+import com.gsdstr.ipbox.R;
+import com.gsdstr.ipbox.activites.BaseActivity;
+import com.gsdstr.ipbox.activites.DetailsActivity;
+import com.gsdstr.ipbox.playlist.Playlist;
 
 /**
  * User: gsd
@@ -49,6 +48,8 @@ public class ChannelsFragment extends Fragment {
 	protected GridView _gridView;
 	protected int _firstVisible;
 
+
+
 	@Override
 	public void onActivityCreated(Bundle savedState) {
 		super.onActivityCreated(savedState);
@@ -65,8 +66,12 @@ public class ChannelsFragment extends Fragment {
 
 		_gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-				((BaseActivity) getActivity()).loadChannel(_adapter.getItem(position));
-
+				if (_adapter.isSelect(position)){
+					((BaseActivity) getActivity()).loadChannel(_adapter.getItem(position));
+					return;
+				}
+				_adapter.select(position);
+				_adapter.notifyDataSetInvalidated();
 			}
 		});
 

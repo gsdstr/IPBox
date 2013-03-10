@@ -1,11 +1,11 @@
-package com.ipbox.fragments;
+package com.gsdstr.ipbox.fragments;
 
 import android.content.Context;
 import android.preference.CheckBoxPreference;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceManager;
-import com.ipbox.IpBoxApp;
-import com.ipbox.playlist.Playlist;
+import com.gsdstr.ipbox.IpBoxApp;
+import com.gsdstr.ipbox.playlist.Playlist;
 
 /**
  * User: gsd
