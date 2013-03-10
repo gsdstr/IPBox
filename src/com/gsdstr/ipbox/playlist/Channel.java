@@ -13,6 +13,14 @@ public class Channel {
 	protected String _url;
 	protected int _iconId = R.drawable.wheel;
 
+	public Channel() {
+	}
+
+	public Channel(String title, String url) {
+		_title = title;
+		_url = url;
+	}
+
 	@Override
 	public String toString() {
 		if (_title != null)

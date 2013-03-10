@@ -1,8 +1,11 @@
 package com.gsdstr.ipbox.playlist;
 
+import android.util.Xml;
 import android.webkit.MimeTypeMap;
 import com.gsdstr.ipbox.Const;
 import com.gsdstr.ipbox.IpBoxApp;
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -74,17 +77,17 @@ public class Playlist {
 		_value = value;
 	}
 
-	@Override
-	public String toString() {
-		return _title;
-	}
-
 	public void select(int position){
 		_lastSelect = position;
 	}
 
 	public boolean isSelect(int position){
 		return _lastSelect == position;
+	}
+
+	@Override
+	public String toString() {
+		return _title;
 	}
 
 	public boolean load() {
@@ -100,8 +103,7 @@ public class Playlist {
 		try {
 			int id = Integer.parseInt(_value);
 			InputStream inputStream = IpBoxApp.getContext().getResources().openRawResource(id);
-			BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-			parseM3U(reader);
+			parseM3U(inputStream);
 		} catch (Exception e) {
 			return false;
 		}
@@ -120,39 +122,26 @@ public class Playlist {
 	}
 
 	protected boolean loadVLCUrl() {
-		return true;
-	}
-
-	protected boolean loadM3UUrl() {
 		try {
 			URLConnection cn = new URL(_value).openConnection();
 			cn.setUseCaches(true);
 			cn.setAllowUserInteraction(false);
 			cn.connect();
 			InputStream inputStream = cn.getInputStream();
-			BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-			parseM3U(reader);
+			return parseVLC(inputStream);
 		} catch (IOException e) {
 			return false;
 		} catch (Exception e) { //TODO
 			return false;
 		}
-		return true;
 	}
 
-	protected boolean _ext;
-
-	protected void parseM3U(BufferedReader reader) throws IOException {
-		String line = reader.readLine();
-		if (line.contains("#EXTM3U")) {
-			_ext = true;
-			line = reader.readLine();
-		}
-
-		while (line != null) {
-			parseLine(line);
-			line = reader.readLine();
-		}
+	protected boolean parseVLC(InputStream inputStream) throws XmlPullParserException, IOException {
+		XmlPullParser parser = Xml.newPullParser();
+		parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
+		parser.setInput(inputStream, null);
+		parser.nextTag();
+		return readVlc(parser);
 	}
 
 	/*<?xml version="1.0" encoding="UTF-8"?>
@@ -170,8 +159,147 @@ public class Playlist {
 				<vlc:id xmlns:vlc="vlc">1</vlc:id>
 			</extension>
 		</track>
+		...
+	</trackList>
+	...
 	</playlist>*/
 
+	private static final String ns = null;
+	protected boolean readVlc(XmlPullParser parser) throws XmlPullParserException, IOException {
+
+		parser.require(XmlPullParser.START_TAG, ns, "playlist");
+		while (parser.next() != XmlPullParser.END_TAG) {
+			if (parser.getEventType() != XmlPullParser.START_TAG) {
+				continue;
+			}
+			String name = parser.getName();
+			// Starts by looking for the entry tag
+			if (name.equals("title")) {
+				_title = readText(parser);
+			} else if (name.equals("trackList")) {
+				readChanels(parser);
+			} else {
+				skip(parser);
+			}
+		}
+		return true;
+	}
+
+	private void readChanels(XmlPullParser parser) throws IOException, XmlPullParserException {
+		parser.require(XmlPullParser.START_TAG, ns, "trackList");
+		while (parser.next() != XmlPullParser.END_TAG) {
+			if (parser.getEventType() != XmlPullParser.START_TAG) {
+				continue;
+			}
+			String name = parser.getName();
+			// Starts by looking for the entry tag
+			if (name.equals("track")) {
+				_channels.add(readChannel(parser));
+			} else {
+				skip(parser);
+			}
+		}
+	}
+
+	private Channel readChannel(XmlPullParser parser) throws XmlPullParserException, IOException {
+		parser.require(XmlPullParser.START_TAG, ns, "track");
+		String title = null;
+		String url = null;
+		while (parser.next() != XmlPullParser.END_TAG) {
+			if (parser.getEventType() != XmlPullParser.START_TAG) {
+				continue;
+			}
+			String name = parser.getName();
+			if (name.equals("title")) {
+				title = readTitle(parser);
+			} else if (name.equals("location")) {
+				url = readUrl(parser);
+			} else {
+				skip(parser);
+			}
+		}
+		return new Channel(title, url);
+	}
+
+	// Processes title tags in the feed.
+	private String readTitle(XmlPullParser parser) throws IOException, XmlPullParserException {
+		parser.require(XmlPullParser.START_TAG, ns, "title");
+		String title = readText(parser);
+		parser.require(XmlPullParser.END_TAG, ns, "title");
+		return title;
+	}
+
+	// Processes title tags in the feed.
+	private String readUrl(XmlPullParser parser) throws IOException, XmlPullParserException {
+		parser.require(XmlPullParser.START_TAG, ns, "location");
+		String title = readText(parser);
+		parser.require(XmlPullParser.END_TAG, ns, "location");
+		return title;
+	}
+
+	// For the tags title and summary, extracts their text values.
+	private String readText(XmlPullParser parser) throws IOException, XmlPullParserException {
+		String result = "";
+		if (parser.next() == XmlPullParser.TEXT) {
+			result = parser.getText();
+			parser.nextTag();
+		}
+		return result;
+	}
+
+	private void skip(XmlPullParser parser) throws XmlPullParserException, IOException {
+		if (parser.getEventType() != XmlPullParser.START_TAG) {
+			throw new IllegalStateException();
+		}
+		int depth = 1;
+		while (depth != 0) {
+			switch (parser.next()) {
+				case XmlPullParser.END_TAG:
+					depth--;
+					break;
+				case XmlPullParser.START_TAG:
+					depth++;
+					break;
+			}
+		}
+	}
+
+	protected boolean loadM3UUrl() {
+		try {
+			URLConnection cn = new URL(_value).openConnection();
+			cn.setUseCaches(true);
+			cn.setAllowUserInteraction(false);
+			cn.connect();
+			InputStream inputStream = cn.getInputStream();
+			parseM3U(inputStream);
+		} catch (IOException e) {
+			return false;
+		} catch (Exception e) { //TODO
+			return false;
+		}
+		return true;
+	}
+
+	protected boolean _ext;
+
+	protected void parseM3U(InputStream inputStream) throws IOException {
+		try {
+			BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+
+			String line = reader.readLine();
+			if (line.contains("#EXTM3U")) {
+				_ext = true;
+				line = reader.readLine();
+			}
+
+			while (line != null) {
+				parseLine(line);
+				line = reader.readLine();
+			}
+		} finally {
+			inputStream.close();
+		}
+	}
 
 	protected boolean _nextUrl;
 	protected String inf = null;

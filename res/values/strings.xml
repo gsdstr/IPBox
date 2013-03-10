@@ -38,6 +38,9 @@
 	<string name="add_by_url">From url</string>
 	<string name="select_from_list">Or select from list</string>
 	<string name="hello_text">Welcome</string>
+	<string name="preferences_udp_proxy">UDP proxy</string>
+	<string name="preferences_udp_proxy_enable">Enable</string>
+	<string name="preferences_udp_proxy_url">Proxy url</string>
 
 </resources>
 

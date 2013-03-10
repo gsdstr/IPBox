@@ -121,6 +121,20 @@ public class BaseActivity extends SherlockFragmentActivity implements ActionBar.
 
 	}
 
+	protected String getUrl(Channel channel){
+		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+		String url = channel.getUrl();
+		Boolean isProxy = preferences.getBoolean("udpEnable", false);
+		if (!isProxy)
+			return url;
+		String proxy = preferences.getString("udpUrl", "http://192.168.1.1:8888/udp/");
+		if (url.contains("udp://@"))
+			return url.replace("udp://@", proxy);
+		if (url.contains("udp://"))
+			return url.replace("udp://", proxy);
+		return url;
+	}
+
 	protected void loadDaroon(Channel channel) {
 		Intent viewMediaIntent = new Intent();
 		viewMediaIntent.setAction(android.content.Intent.ACTION_VIEW);
@@ -133,7 +147,7 @@ public class BaseActivity extends SherlockFragmentActivity implements ActionBar.
 	protected void loadSystem(Channel channel) {
 		Intent viewMediaIntent = new Intent();
 		viewMediaIntent.setAction(android.content.Intent.ACTION_VIEW);
-		viewMediaIntent.setDataAndType(Uri.parse(channel.getUrl()), "video/*");
+		viewMediaIntent.setDataAndType(Uri.parse(getUrl(channel)), "video/*");
 		viewMediaIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
 		startActivityForResult(viewMediaIntent, 0);
 	}

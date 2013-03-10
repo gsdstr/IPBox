@@ -9,6 +9,7 @@
 		android:id="@+id/channel_layout"
 		android:layout_height="match_parent"
 		android:layout_width="match_parent"
+		android:background="@drawable/border"
 		android:padding="7dp"
 		android:layout_margin="3dp">
 
@@ -42,7 +43,7 @@
 			android:text="@string/test_line"
 			android:gravity="center"
 			android:lines="1"
-			android:visibility="gone"
+
 			/>
 
 		<TextView

@@ -41,6 +41,23 @@
 	</PreferenceCategory>
 
 	<PreferenceCategory
+		android:title="@string/preferences_udp_proxy">
+
+		<CheckBoxPreference
+			android:key="udpEnable"
+			android:defaultValue="false"
+			android:title="@string/preferences_udp_proxy_enable"/>
+
+		<EditTextPreference
+			android:key="udpUrl"
+			android:defaultValue="http://192.168.1.1:8888/udp/"
+			android:title="@string/preferences_udp_proxy_url"
+			android:summary="@string/preferences_udp_proxy_url"
+			android:dialogTitle="@string/preferences_udp_proxy_url"/>
+
+	</PreferenceCategory>
+
+	<PreferenceCategory
 		android:key="playlists_category"
 		android:title="@string/preferences_playlists">
 
