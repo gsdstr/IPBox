@@ -72,6 +72,7 @@ public class ChannelsFragment extends Fragment {
 				}
 				_adapter.select(position);
 				_adapter.notifyDataSetInvalidated();
+				((BaseActivity) getActivity()).onSelect(_adapter.getItem(position));
 			}
 		});
 
@@ -109,7 +110,7 @@ public class ChannelsFragment extends Fragment {
 	@Override
 	public void onCreate(Bundle savedInstance) {
 		super.onCreate(savedInstance);
-		_list = IpBoxApp.getPlayListsHolder().getPlayList(getShownIndex());
+		_list = IpBoxApp.getPlayListArray().getPlayList(getShownIndex());
 		if (_list == null)
 			return;
 		if (savedInstance != null)

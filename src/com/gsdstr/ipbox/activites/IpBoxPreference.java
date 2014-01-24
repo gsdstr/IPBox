@@ -16,12 +16,12 @@ public class IpBoxPreference extends PreferenceActivity {
 		super.onCreate(savedInstanceState);
 
 		addPreferencesFromResource(R.xml.preferences);
-		IpBoxApp.getPlayListsHolder().fillLists(getPreferenceManager(), this);
+		IpBoxApp.getPlayListArray().fillLists(getPreferenceManager(), this);
 	}
 
 	@Override
 	public void onStop() {
-		IpBoxApp.getPlayListsHolder().storePlayLists();
+		IpBoxApp.getPlayListArray().storePlayLists();
 		super.onStop();
 	}
 }

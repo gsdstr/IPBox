@@ -51,7 +51,7 @@ public class NewActivity extends FragmentActivity {
 	}
 
 	protected void addNewUrl(Editable text) {
-		IpBoxApp.getPlayListsHolder().addNewUrl(text.toString());
+		IpBoxApp.getPlayListArray().addNewUrl(text.toString());
 	}
 
 	protected void fillUrl(EditText editText) {
@@ -84,7 +84,7 @@ public class NewActivity extends FragmentActivity {
 	}
 
 	private void addProvider(Object selectedItem) {
-		IpBoxApp.getPlayListsHolder().addNewProvider(selectedItem.toString());
+		IpBoxApp.getPlayListArray().addNewProvider(selectedItem.toString());
 	}
 
 	protected void fillList(Spinner spinner) {

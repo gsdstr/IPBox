@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import com.gsdstr.ipbox.activites.NewActivity;
-import com.gsdstr.ipbox.playlist.PlayListsHolder;
+import com.gsdstr.ipbox.playlist.PlayListArray;
 import org.acra.ACRA;
 import org.acra.annotation.ReportsCrashes;
 
@@ -19,10 +19,10 @@ import org.acra.annotation.ReportsCrashes;
 public class IpBoxApp extends Application {
 
 	private static Context _context;
-	protected static PlayListsHolder _playListsHolder;
+	protected static PlayListArray _playListArray;
 
-	public static PlayListsHolder getPlayListsHolder() {
-		return _playListsHolder;
+	public static PlayListArray getPlayListArray() {
+		return _playListArray;
 	}
 
 	public static Context getContext() {
@@ -33,7 +33,7 @@ public class IpBoxApp extends Application {
 	public void onCreate() {
 		ACRA.init(this);
 		_context = this;
-		_playListsHolder = new PlayListsHolder();
+		_playListArray = new PlayListArray();
 
 		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
 		if (preferences.getBoolean(Const.PREFERENCE_FIRST_TIME, true)) {
@@ -47,7 +47,7 @@ public class IpBoxApp extends Application {
 			editor.commit();
 		}
 
-		_playListsHolder.loadPlayLists();
+		_playListArray.loadPlayLists();
 		super.onCreate();
 	}
 

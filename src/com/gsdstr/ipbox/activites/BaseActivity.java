@@ -33,8 +33,13 @@ public class BaseActivity extends SherlockFragmentActivity implements ActionBar.
 
 	protected static final int ID_MENU_SEARCH = 1;
 	protected static final int ID_MENU_PREFERENCES = 2;
+	protected static final int ID_MENU_SHARE = 3;
 
 	protected ChannelsFragment _channels;
+
+	protected MenuItem _miPlay;
+	protected MenuItem _miChannel;
+	protected MenuItem _miShare;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -42,14 +47,14 @@ public class BaseActivity extends SherlockFragmentActivity implements ActionBar.
 		setTitle("");
 		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
 		setPlaylist(preferences.getInt(Const.PREFERENCE_LAST_PLAYLIST, 0));
-		String theme = preferences.getString(Const.PREFERENCE_PLAYER_THEME, "White");
+		/*String theme = preferences.getString(Const.PREFERENCE_PLAYER_THEME, "White");
 		if (theme.equals("Black")) {
 			setTheme(R.style.BoxTheme_Black);
 		} else
-			setTheme(R.style.BoxTheme_Light);
+			setTheme(R.style.BoxTheme_Light);*/
 
 		Context context = getSupportActionBar().getThemedContext();
-		ArrayAdapter<Playlist> list = new ArrayAdapter<Playlist>(context,  R.layout.sherlock_spinner_item, IpBoxApp.getPlayListsHolder().getPlaylists());
+		ArrayAdapter<Playlist> list = new ArrayAdapter<Playlist>(context,  R.layout.sherlock_spinner_item, IpBoxApp.getPlayListArray().getPlaylists());
 		list.setDropDownViewResource(R.layout.sherlock_spinner_dropdown_item);
 
 		getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
@@ -64,10 +69,25 @@ public class BaseActivity extends SherlockFragmentActivity implements ActionBar.
 		searchView.setQueryHint("Search");
 		searchView.setOnQueryTextListener(this);
 
+		_miChannel = menu.add(Menu.NONE, ID_MENU_PREFERENCES, Menu.NONE, R.string.menu_play);
+		_miChannel.setShowAsAction(MenuItem.SHOW_AS_ACTION_WITH_TEXT);
+		_miChannel.setIcon(R.drawable.ic_menu_preferences);
+		_miChannel.setVisible(false);
+
+		_miPlay = menu.add(Menu.NONE, ID_MENU_PREFERENCES, Menu.NONE, R.string.menu_play);
+		_miPlay.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+		_miPlay.setIcon(R.drawable.ic_menu_preferences);
+		_miPlay.setVisible(false);
+
 		MenuItem miSearch = menu.add(Menu.NONE, ID_MENU_SEARCH, Menu.NONE, R.string.menu_search);
 		miSearch.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS | MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
 		miSearch.setActionView(searchView);
 		miSearch.setIcon(R.drawable.ic_menu_search);
+
+		_miShare = menu.add(Menu.NONE, ID_MENU_SHARE, Menu.NONE, R.string.menu_share);
+		_miShare.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+		_miShare.setIcon(R.drawable.ic_menu_edit);
+		_miShare.setEnabled(false);
 
 		MenuItem miPrefs = menu.add(Menu.NONE, ID_MENU_PREFERENCES, Menu.NONE, R.string.menu_preferences);
 		miPrefs.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
@@ -197,7 +217,7 @@ public class BaseActivity extends SherlockFragmentActivity implements ActionBar.
 	}
 
 	protected void setPlaylist(int index) {
-		if (index < 0 || IpBoxApp.getPlayListsHolder().getPlaylists().size() < index)
+		if (index < 0 || IpBoxApp.getPlayListArray().getPlaylists().size() < index)
 			index = 0;
 
 		// Check what fragment is shown, replace if needed.
@@ -238,5 +258,18 @@ public class BaseActivity extends SherlockFragmentActivity implements ActionBar.
 			return false;
 		_channels.setQuery(newText);
 		return true;
+	}
+
+	public void onSelect(Channel item) {
+		if (item == null){
+			_miChannel.setVisible(false);
+			_miPlay.setVisible(false);
+			_miShare.setEnabled(false);
+			return;
+		}
+		_miChannel.setTitle(item.toString());
+		_miChannel.setVisible(true);
+		_miPlay.setVisible(true);
+		_miShare.setEnabled(true);
 	}
 }

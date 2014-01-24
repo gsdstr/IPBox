@@ -16,11 +16,11 @@ import java.util.ArrayList;
  * Date: 6/9/12
  * Time: 12:42 PM
  */
-public class PlayListsHolder {
+public class PlayListArray {
 
 	protected ArrayList<Playlist> _playlists;
 
-	public PlayListsHolder() {
+	public PlayListArray() {
 		_playlists = new ArrayList<Playlist>();
 	}
 

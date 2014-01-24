@@ -25,14 +25,14 @@ public class IpBoxPreferenceHc extends FragmentActivity {
 		public void onCreate(Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);
 			addPreferencesFromResource(R.xml.preferences);
-			IpBoxApp.getPlayListsHolder().fillLists(getPreferenceManager(), this.getActivity());
+			IpBoxApp.getPlayListArray().fillLists(getPreferenceManager(), this.getActivity());
 
 
 		}
 
 		@Override
 		public void onStop() {
-			IpBoxApp.getPlayListsHolder().storePlayLists();
+			IpBoxApp.getPlayListArray().storePlayLists();
 			super.onStop();
 		}
 	}

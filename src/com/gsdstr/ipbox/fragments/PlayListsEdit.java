@@ -20,7 +20,7 @@ public class PlayListsEdit {
 		category.setTitle("Category 1");
 		category.setSummary("Description of category 1");
 
-		for (Playlist playlist : IpBoxApp.getPlayListsHolder().getPlaylists()) {
+		for (Playlist playlist : IpBoxApp.getPlayListArray().getPlaylists()) {
 			CheckBoxPreference playListCategory = new CheckBoxPreference(context);
 			category.setKey(playlist.getTitle());
 			category.setTitle(playlist.getTitle());
